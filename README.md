@@ -1,6 +1,8 @@
 # app-correios-consulta
 
-Aplicação para Gerenciar Pacotes Entregues pelos Correios
+Aplicação para Gerenciar Pacotes Entregues pelos Correios.
+
+> **Nota:** A Aplicação **app-correios-consulta** foi criada com base no WebService dos Correios de Rastreio de Pacotes.
 
 ### Documentação Oficial Correios
 
