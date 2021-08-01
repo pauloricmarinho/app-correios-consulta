@@ -1,0 +1,36 @@
+<html  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<!-- Dependencia do Thymeleaf -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<meta name="viewport" content="width=device-width"></meta>
+
+<title>Controle de Cobrança</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/style.css}"></link>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"></link>
+</head>
+<body>
+
+
+<!-- Arquivo de Cabeçalho -->
+<header layout:include="header"></header>
+
+<section layout:fragment="conteudo">
+    <p>Page content goes here</p>
+</section>
+
+<footer layout:include="footer"></footer>
+
+<script type="text/javascript" th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/jquery/jquery.maskMoney.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap-datepicker/js/bootstrap-datepicker.pt-BR.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/bootstrap/js/cobranca.js}"></script>
+</body>
+</html>

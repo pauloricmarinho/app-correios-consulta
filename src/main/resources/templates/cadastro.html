@@ -1,0 +1,82 @@
+<html  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template"> <!-- NOME DO ARQUIVO template.html -->
+	<!-- Dependencia do Thymeleaf -->
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Cadastro de Pacotes Correrios</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<!-- FORM -->
+	<!-- th:object usado para propagar os erros nos campos do bean validation -->
+	<form class="form-horizontal" th:action="@{/pacotes}" method="POST" th:object="${pacote}">
+	 	
+	 	<div layout:include="mensagens-sucesso"></div>
+	 	<div layout:include="mensagens-erro"></div>
+	 	
+	 	<!-- Usado para Alteração do Objeto -->
+	 	<input type="hidden" th:field="*{codigo}"></input>
+		
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<div class="clearfix">
+    				<h1 class="panel-title aw-pacote-panel">Cadastrar Novo Pacote</h1>
+	    			<a class="btn btn-link aw-link-panel" th:href="@{/pacotes}">Pesquisar Pacotes</a>
+	    		</div>
+    		</div>
+    		<div class="panel-body">
+				<div class="form-group" th:classappend="${#fields.hasErrors('codigo')} ? 'has-error'">
+					<label for="descricao" class="col-sm-2 control-label">Número Pacote</label>
+					<div class="col-sm-4"> 
+						<input type="text" class="form-control" id="codigo" th:field="*{codigo}"></input>
+					</div>
+				</div>
+				<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? 'has-error'">
+					<label for="descricao" class="col-sm-2 control-label">Descrição</label>
+					<div class="col-sm-4"> 
+						<input type="text" class="form-control" id="descricao" th:field="*{descricao}"></input>
+					</div>
+				</div>
+				<div class="form-group" th:classappend="${#fields.hasErrors('dataCompra')} ? 'has-error'">
+					<label for="dataCompra" class="col-sm-2 control-label">Data de vencimento</label>
+					<div class="col-sm-2">  
+						<input type="text" class="form-control"	id="dataCompra" th:field="*{dataCompra}"
+						data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+						data-date-autoclose="true" data-date-today-highlight="true" data-date-orientation="bottom"></input>
+					</div>
+				</div>
+				<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? 'has-error'">
+					<label for="valor" class="col-sm-2 control-label">Valor</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="valor" th:field="*{valor}"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="status" class="col-sm-2 control-label">Categoria</label>
+					<div class="col-sm-2">
+						<select class="form-control" th:field="*{categoria}">
+							<option th:each="categoria : ${categoriaPacote}" th:value="${categoria}" th:text="${categoria.descricao}"></option>
+                    	</select>
+                    </div>
+				</div>
+				<div class="form-group">
+					<label for="status" class="col-sm-2 control-label">Status</label>
+					<div class="col-sm-2">
+						<select class="form-control" th:field="*{status}">
+							<option th:each="status : ${statusPacote}" th:value="${status}" th:text="${status.descricao}"></option>
+                    	</select>
+                    </div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </form>    
+</section>
+</html>
