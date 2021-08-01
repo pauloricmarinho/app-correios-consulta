@@ -2,7 +2,7 @@ $("#confirmaExclusaoModal").on("show.bs.modal", function(event){
 
 	var button = $(event.relatedTarget);
 	
-	var codigoTitulo = button.data('codigo');
+	var codigoTitulo = button.data('id');
 	var descricaoTitulo = button.data('descricao');	
 	
 	var modal = $(this);
@@ -15,7 +15,7 @@ $("#confirmaExclusaoModal").on("show.bs.modal", function(event){
 	
 	form.attr('action', action + codigoTitulo);
 	
-	modal.find('.modal-body span').html('Tem Certeza que Deseja Excluir o Título <strong>'+descricaoTitulo+'</strong>?');
+	modal.find('.modal-body span').html('Tem Certeza que Deseja Excluir o Pacote <strong>'+descricaoTitulo+'</strong>?');
 
 });
 
@@ -36,14 +36,14 @@ $(function(){
 		});
 		
 		response.done(function(e){
-			var codigoTitulo = btnReceber.data('codigo');
+			var codigoTitulo = btnReceber.data('id');
 			$('[data-role='+ codigoTitulo +']').html('<span class="label label-success">' + e +'</span>');
 			btnReceber.hide();
 		});
 
 		response.fail(function(e){
 			console.log(e);
-			alert('Ocorreu um Erro ao Receber a Cobrança');
+			alert('Ocorreu um Erro ao Receber o Pacote');
 		});
 		
 	});

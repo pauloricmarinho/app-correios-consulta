@@ -30,8 +30,11 @@ import br.com.prmarinho.correios.enums.StatusPacote;
 public class Pacote {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Size(max = 13, min=13, message = "Tamanho do Código Inválido.")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@NotEmpty(message="Campo Código é Obrigatório.")
+	@Size(max = 13, min=10 , message = "Tamanho do Código Inválido.")
 	private String codigo;
 	
 	@NotEmpty(message="Campo Descrição é Obrigatório.")
@@ -43,9 +46,7 @@ public class Pacote {
 	@NotNull(message = "O Campo Data da Compra não pode ser Nulo.")
 	private Date dataCompra;
 	
-	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
-	@NotNull(message = "O Campo Data de Cadastro não pode ser Nulo.")
 	@CreationTimestamp
 	private Date dataCadastro;
 	
@@ -60,6 +61,22 @@ public class Pacote {
 	
 	@Enumerated(EnumType.STRING)
 	private CategoriaPacote categoria;
+	
+	public boolean isPendente() {
+		return StatusPacote.PENDENTE.equals(this.status);
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setCategoria(CategoriaPacote categoria) {
+		this.categoria = categoria;
+	}
 
 	public String getCodigo() {
 		return codigo;

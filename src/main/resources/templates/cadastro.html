@@ -18,7 +18,7 @@
 	 	<div layout:include="mensagens-erro"></div>
 	 	
 	 	<!-- Usado para Alteração do Objeto -->
-	 	<input type="hidden" th:field="*{codigo}"></input>
+	 	<input type="hidden" th:field="*{id}"></input>
 		
     	<div class="panel panel-default">
     		<div class="panel-heading">
@@ -28,7 +28,7 @@
     					Cadastrar Novo Pacote
     				
 	    				<a class="btn btn-link aw-link-panel" th:href="@{/pacotes}">
-	    					<img width="35px" th:src="@{/images/lupa-pacote.png}" class="d-inline-block align-top" alt="Cadastro de Pacotes"></img>
+	    					<img width="35px" th:src="@{/images/lupa-pacote.png}" class="d-inline-block align-top" alt="Lista de Pacotes"></img>
 	    				</a>
 	    			</h1>
 	    		</div>

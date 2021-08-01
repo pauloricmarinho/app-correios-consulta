@@ -25,11 +25,11 @@ public class PacoteService {
 		}
 	}
 	
-	public void excluir(String codigo) {
+	public void excluir(Long codigo) {
 		repository.deleteById(codigo);
 	}
 	
-	public String receber(String codigo) {
+	public String receber(Long codigo) {
 		Pacote pacote = repository.findById(codigo).get();
 		pacote.setStatus(StatusPacote.RECEBIDO);
 		repository.save(pacote);
@@ -38,7 +38,7 @@ public class PacoteService {
 	}
 	
 	public List<Pacote> filtrarTitulos(PacoteFilter filtro){
-		String descricao = filtro.getDescricao() == null ? "'%'" : filtro.getDescricao();
+		String descricao = filtro.getDescricao() == null ? "" : filtro.getDescricao();
 		return repository.findByDescricaoContaining(descricao);
 	}
 }

@@ -6,18 +6,25 @@
 	<!-- Dependencia do Thymeleaf -->
 <head>
 	<meta charset="UTF-8"></meta>
-	<title>Cadastro de Títulos</title>
+	<title>Controle de Pacotes</title>
 </head>
-
-
 
 <section layout:fragment="conteudo">
 	<div layout:include="mensagens-sucesso"></div>	
 	<div class="panel panel-default">
    		<div class="panel-heading">
    			<div class="clearfix">
-   				<h1 class="panel-title aw-titulo-panel">Pesquisa de Títulos</h1>
-   				<a  class="btn btn-link aw-link-panel" th:href="@{/titulos/novo}">Novo Título</a>
+   				<h1 class="panel-title aw-pacote-panel">
+   				
+   				
+   						<img width="35px" th:src="@{/images/lupa-pacote.png}" class="d-inline-block align-top" alt="Lista de Pacotes"></img>
+    					Consulta de Pacotes
+    				
+	    				<a class="btn btn-link aw-link-panel" th:href="@{/pacotes/novo}">
+	    					<img width="35px" th:src="@{/images/pacote-rastreio.png}" class="d-inline-block align-top" alt="Cadastro de Pacotes"></img>
+	    					Novo Pacote
+	    				</a>
+	    				</h1>
    			</div>
    		</div>
 		<div class="panel-body">
@@ -26,7 +33,7 @@
 	   			<div class="form-group">
 	   				<div class="col-sm-4">
 	   					<div class="input-group">
-	   						<input class="form-control" th:field="*{descricao}" placeholder="Qual título você está procurando?"
+	   						<input class="form-control" th:field="*{descricao}" placeholder="Qual Pacote você está procurando?"
 	   							autofocus="autofocus"></input>
 	   						<span class="input-group-btn">
 	   							<button type="submit" class="btn btn-default">
@@ -41,37 +48,41 @@
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th class="text-center col-md-1">#</th>
-						<th>Descrição</th>
-						<th class="text-center col-md-2">Data de Vencimento</th>
-						<th class="text-right col-md-2">Valor</th>
+						<th class="text-center col-md-1">Rastreio</th>
+						<th class="text-left col-md-4">Descrição</th>
+						<th class="text-center col-md-1">Data Compra</th>
+						<th class="text-center col-md-1">Valor</th>
+						<th class="text-center col-md-2">Categoria</th>
 						<th class="text-center col-md-2">Status</th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:if="${listaTitulos.isEmpty()}"> <!-- ${#list.isEmpty(listaTitulos)} -->
-						<td colspan="6">Nenhum Título Localizado...</td>												
+					<tr th:if="${listaPacotes.isEmpty()}"> <!-- ${#list.isEmpty(listaPacotes)} -->
+						<td colspan="7">Nenhum Pacote Localizado...</td>												
 					</tr>
 					
-					<tr th:each="titulo : ${listaTitulos}">
-						<td th:text="${titulo.codigo}"></td>
-						<td th:text="${titulo.descricao}"></td>
-						<td class="text-center col-md-2" th:text="${{titulo.dataVencimento}}"></td> <!-- Chaves Duplas usa a Formatação Definida na Anotação da Classe -->
-						<td class="text-right col-md-2" th:text="|R$ ${{titulo.valor}}|"></td><!-- Chaves Duplas usa a Formatação Definida na Anotação da Classe, Operador pipe | concatena valores -->
-						<td  class="text-center col-md-2"  th:attr="data-role=${titulo.codigo}">
+					<tr th:each="pacote : ${listaPacotes}">
+						<td th:text="${pacote.codigo}"></td>
+						<td th:text="${pacote.descricao}"></td>
+						<td class="text-center col-md-1" th:text="${{pacote.dataCompra}}"></td> <!-- Chaves Duplas usa a Formatação Definida na Anotação da Classe -->
+						<td class="text-center col-md-1" th:text="|R$ ${{pacote.valor}}|"></td><!-- Chaves Duplas usa a Formatação Definida na Anotação da Classe, Operador pipe | concatena valores -->
+						
+						<td th:text="${pacote.categoria.descricao}"></td>
+						
+						<td  class="text-center col-md-2"  th:attr="data-role=${pacote.id}">
 							<span class="label" 
-								th:text="${titulo.status.descricao}"
-								th:classappend="${titulo.pendente ? 'label-danger' : 'label-info'}"
+								th:text="${pacote.status.descricao}"
+								th:classappend="${pacote.pendente ? 'label-danger' : 'label-info'}"
 								>
-								<!-- th:classappend simplificado com o uso do método isPendente do VO de Titulo -->
-								<!-- th:classappend="${#strings.toString(titulo.status) == 'PENDENTE' ? 'label-danger' : 'label-success'}"-->
+								<!-- th:classappend simplificado com o uso do método isPendente do VO de pacote -->
+								<!-- th:classappend="${#strings.toString(pacote.status) == 'PENDENTE' ? 'label-danger' : 'label-success'}"-->
 								<!-- classappend realiza um append na classe css do atributo -->
 							</span>
 						</td>
 						<td class="text-center">
 							<a class="btn btn-link btn-xs" 
-								th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"
+								th:href="@{/pacotes/{id}(id=${pacote.id})}"
 								rel="tooltip" title="Editar" data-placement="top">
 								
 								<span class="glyphicon glyphicon-pencil"></span>
@@ -80,15 +91,15 @@
 							<a class="btn btn-link btn-xs" 
 							   data-toggle="modal" 
 							   data-target="#confirmaExclusaoModal" 
-							   th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}"
+							   th:attr="data-id=${pacote.id}, data-descricao=${pacote.descricao}"
 							   rel="tooltip" title="Excluir" data-placement="top">
 								<span class="glyphicon glyphicon-remove"></span>
 							</a>
 							
-							<a class="btn btn-link btn-xs js-atualiza-status" th:if="${titulo.pendente}"
+							<a class="btn btn-link btn-xs js-atualiza-status" th:if="${pacote.pendente}"
 							   rel="tooltip" title="Receber" data-placement="top"
-							   th:attr="data-codigo=${titulo.codigo}"
-							   th:href="@{/titulos/{codigo}/receber(codigo=${titulo.codigo})}">
+							   th:attr="data-id=${pacote.id}"
+							   th:href="@{/pacotes/{id}/receber(id=${pacote.id})}">
 								<span class="glyphicon glyphicon-check"></span>
 							</a>
 							

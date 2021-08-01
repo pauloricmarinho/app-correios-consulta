@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.prmarinho.correios.model.Pacote;
 
-public interface PacoteRepository extends JpaRepository<Pacote, String> {
+public interface PacoteRepository extends JpaRepository<Pacote, Long> {
 
 	public List<Pacote> findByDescricaoContaining(String descricao);
 }
