@@ -1,0 +1,1 @@
+web: java -jar target/app-correios-consulta-0.0.1-SNAPSHOT.war
