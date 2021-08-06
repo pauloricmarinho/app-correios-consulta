@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/app-correios-consulta-0.0.1-SNAPSHOT.war --server.port=$PORT $JAVA_OPTS
+web: java -Dspring.profiles.active=prod $JAVA_OPTS -jar target/app-correios-consulta-0.0.1-SNAPSHOT.war --server.port=$PORT $JAVA_OPTS
