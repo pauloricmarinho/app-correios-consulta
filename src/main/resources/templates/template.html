@@ -25,6 +25,7 @@
 
 <footer layout:include="footer"></footer>
 
+<script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
 <script type="text/javascript" th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/jquery/jquery.maskMoney.min.js}"></script>
 <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
@@ -32,5 +33,37 @@
 <script type="text/javascript" th:src="@{/bootstrap-datepicker/js/bootstrap-datepicker.pt-BR.min.js}"></script>
 
 <script type="text/javascript" th:src="@{/bootstrap/js/pacotes.js}"></script>
+
+<script type="text/javascript">
+    /* Realiza a Chamada ao Rest de Usuário */
+    $.get("/user", function(data){
+    	$("#user").html(data.name);
+    	$("#avatar").attr("src",data.avatar)
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+    });
+    
+    var logout = function() {
+        $.post("/logout", function(){
+            $("#user").html('');
+            $(".unauthenticated").show();
+            $(".authenticated").hide();
+        })
+        return true;
+    }
+    
+    // Tratamento de CORs Logout
+    $.ajaxSetup({
+    	  beforeSend : function(xhr,settings) {
+    	    if(settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE'){
+    	      if(!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))){
+    	        xhr.setRequestHeader("X-XSRF-TOKEN",Cookies.get('XSRF-TOKEN'));
+    	      }
+    	    }
+    	  }
+    	});
+    
+</script>
+
 </body>
 </html>
