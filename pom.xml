@@ -105,13 +105,16 @@
 	</dependencies>
 
 	<build>
+		<!-- Definição nome do Artefato -->
+		<finalName>app-correios</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-
+		
+				
 			<!-- Geração do Cliente do Web Services dos Correios -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
