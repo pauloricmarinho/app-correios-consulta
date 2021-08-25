@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.prmarinho.correios</groupId>
 	<artifactId>app-correios-consulta</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<packaging>war</packaging>
 	<name>app-correios-consulta</name>
 	<description>Aplicação Gerenciadora de Pacotes com Entrega dos Correios</description>
@@ -103,6 +103,21 @@
     		<version>2.1.0</version>
 		</dependency>
 	</dependencies>
+	
+	
+	<!-- Configuração Repositório Remoto Nexus -->
+	<distributionManagement>
+	    <snapshotRepository>
+	      <id>maven-snapshots</id>
+	      <url>http://192.168.99.100:8081/repository/maven-snapshots</url>
+	    </snapshotRepository>
+	
+	    <repository>
+	        <id>maven-releases</id>
+	        <url>http://192.168.99.100:8081/repository/maven-releases</url>
+	    </repository>
+		</distributionManagement>
+	
 
 	<build>
 		<!-- Definição nome do Artefato -->
@@ -156,6 +171,26 @@
 						<version>2.2.10</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			
+			<plugin>
+			   <groupId>org.sonatype.plugins</groupId>
+			   <artifactId>nexus-staging-maven-plugin</artifactId>
+			   <version>1.5.1</version>
+			   <executions>
+				  <execution>
+					 <id>default-deploy</id>
+					 <phase>deploy</phase>
+					 <goals>
+						<goal>deploy</goal>
+					 </goals>
+				  </execution>
+			   </executions>
+			   <configuration>
+				  <serverId>nexus</serverId>
+				  <nexusUrl>http://192.168.99.100:8081/nexus</nexusUrl>
+				  <skipStaging>true</skipStaging>
+			   </configuration>
 			</plugin>
 
 
